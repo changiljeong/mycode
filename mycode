@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+
+heroes= ["Spiderman", "Batman", "Black Panther", "Wonder Woman", "Storm"]
+
+print(f"My favorite character is {heroes[2]}!")
+
+pick= int(input("Pick a number between 1 and 100\n"))
+
+
+nums= [1, -5, 56, 987, 0]
+
+print(max(nums))
+
