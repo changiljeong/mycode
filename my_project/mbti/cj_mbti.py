@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
-
-# Create an application that give MBTI results per user-selected input.
 import os
 
-
+# Create an application that give MBTI results per user-selected input.
 def main():
 
   mbti_type = {
@@ -61,13 +59,11 @@ def main():
   }
 
   # Extraversion vs. Introversion | Sensing vs. Intuition | Thinking vs. Feeling | Judging vs. Perceiving
+  # Initialize dictionary to store data input from the user & apply logical conditions.
+  answers = {"name": "", "EI": "", "SN": "", "TF": "", "JP": ""}
 
   while True:
     try:
-
-      # Initialize dictionary to store data input from the user & apply logical conditions.
-      answers = {"name": "", "EI": "", "SN": "", "TF": "", "JP": ""}
-
       # Capture the name from user-input and store to dict immediately.
       answers["name"] = input(
         ":::: **** Welcome to CJ's Myers-Briggs Type Indicator**** ::::\n\nI will be asking you few questions and please answer numeric value of '1' for YES or '2' for NO in most of questions.\n\nBefore we get to the business, who am I speaking with today? :)\n >>> "
@@ -78,17 +74,13 @@ def main():
         input(
           f"\n**********************************************************************\nAlright, {answers.get('name')}! Here is the first question for you. Which option describe you the most? \n\n1 - I am described as taltative, outgoing. Tend to work out ideas with others, think out loud and enjoy being the center of attention.\n2 - I am described as reserved, private and prefer observing than be the center of attention.\n >>> "
         ))
-
       os.system('clear')
       if answer_ei == 1:
         answers["EI"] = "E"
       elif answer_ei == 2:
         answers["EI"] = "I"
       else:
-        print(
-          "You can only select the value of 1 or 2. Let's start again from the top! \n=========================================== \n"
-        )
-        main()
+        choice_error_retry()
 
       answer_sn = int(
         input(
@@ -100,10 +92,7 @@ def main():
       elif answer_sn == 2:
         answers["SN"] = "N"
       else:
-        print(
-          "You can only select the value of 1 or 2. Let's start again from the top! \n=========================================== \n"
-        )
-        main()
+        choice_error_retry()
 
       answer_tf = int(
         input(
@@ -115,10 +104,7 @@ def main():
       elif answer_tf == 2:
         answers["TF"] = "F"
       else:
-        print(
-          "You can only select the value of 1 or 2. Let's start again from the top! \n=========================================== \n"
-        )
-        main()
+        choice_error_retry()
 
       answer_jp = int(
         input(
@@ -130,10 +116,7 @@ def main():
       elif answer_jp == 2:
         answers["JP"] = "P"
       else:
-        print(
-          "You can only select the value of 1 or 2. Let's start again from the top! \n=========================================== \n"
-        )
-        main()
+        choice_error_retry()
 
     # Concat dict values to create MBTI
       if answer_ei and answer_sn and answer_tf and answer_jp:
@@ -143,25 +126,30 @@ def main():
         final_description = mbti_description[result]
 
         print(
-          f"\n\n**********************************************************************\nFantastic, {answers.get('name')}! So it appears as your MBTI is {result} which the type is known as: {final_type}. You are {final_description} Does it sound about right?\n\n and have a wonderful day!\n**********************************************************************"
+          f"\n\n**********************************************************************\nFantastic, {answers.get('name')}! So it appears as your MBTI is {result} which the type is known as: {final_type}. You are {final_description} Does it sound about right?\n\n\n**********************************************************************"
         )
 
     # Restarting Inquiry
       restart = input(
         "Thank you so much for your participation. Would you like to restart this again? (Y/N)"
       )
-      if restart == "yes" or restart == "y":
+      if restart.lower() == "yes" or restart == "y":
         main()
-      if restart == "n" or restart == "no":
+      if restart.lower() == "n" or restart == "no":
         print("Script terminating. Goodbye.")
         break
         
-    # Exception to catch ValueError of non-integer input
+    # Exception to catch ValueError of non-integer 
     except ValueError:
       os.system('clear')
       print("You can only select the value of 1 or 2. Let's start again from the top! \n=========================================== \n")
       main()
 
+
+
+def choice_error_retry():
+  print("You can only select the value of 1 or 2. Let's start again from the top! \n=========================================== \n")
+  main()
 
 if __name__ == "__main__":
   main()
